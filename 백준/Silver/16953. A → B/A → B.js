@@ -4,28 +4,20 @@ let [goal,number] = fs.readFileSync('/dev/stdin').toString().split(' ').map(Numb
 
 let count = 1;
 
-const func = (input)=>{
-    if(input%2===0){
-        let a = input/2
+ while (number > goal) { 
+        if (number % 2 === 0) {
+            number = number / 2;
+        } else if (number % 10 === 1) {
+            number = Math.floor(number / 10);
+        } else {
+            count = -1; 
+            break;
+        }
         count++;
-        if(a===goal){
-            return;
-        }
-        func(a)
-    }else {
-        let str = input.toString()
-        if(str[str.length-1]!=="1"){
-            count = -1
-            return;
-        }else{
-            let b = parseInt(str.substring(0,str.length-1))
-            count++;
-           if(b===goal){
-               return;
-           }
-            func(b)
-        }
     }
-}
-func(number)
+
+    if (number !== goal) {
+        count = -1;  
+    }
+
 console.log(count)
